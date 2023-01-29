@@ -1,5 +1,7 @@
 package br.com.fiap.abctechapi.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +23,7 @@ public class OrderController {
     }
     
     @PostMapping
-    public ResponseEntity createOrder(@RequestBody OrderDto orderDto) throws Exception {
+    public ResponseEntity createOrder(@Valid @RequestBody OrderDto orderDto) throws Exception {
         orderApplication.createOrder(orderDto);
         return ResponseEntity.ok().build();
     }

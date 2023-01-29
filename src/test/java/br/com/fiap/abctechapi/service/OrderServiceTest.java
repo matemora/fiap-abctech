@@ -1,5 +1,6 @@
 package br.com.fiap.abctechapi.service;
 
+import br.com.fiap.abctechapi.handler.exception.MinimumAssistsException;
 import br.com.fiap.abctechapi.model.Assist;
 import br.com.fiap.abctechapi.model.Order;
 import br.com.fiap.abctechapi.repository.AssistRepository;
@@ -7,6 +8,7 @@ import br.com.fiap.abctechapi.repository.OrderRepository;
 import br.com.fiap.abctechapi.service.impl.OrderServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -34,11 +36,13 @@ public class OrderServiceTest {
                 thenReturn(Optional.of(new Assist(1L, "Teste", "Description Test")));
     }
 
+    @DisplayName("Order service must not be null")
     @Test
     public void order_service_not_null(){
         Assertions.assertNotNull(orderService);
     }
 
+    @DisplayName("Should create order")
     @Test
     public void create_order_success() throws Exception{
         Order newOrder = new Order();
@@ -49,16 +53,18 @@ public class OrderServiceTest {
         verify(orderRepository, times(1)).save(newOrder);
     }
 
+    @DisplayName("Should not create order for minimum assists")
     @Test
     public void create_order_error_minimum() throws Exception {
         Order newOrder = new Order();
         newOrder.setOperatorId(1234L);
 
-        Assertions.assertThrows(Exception.class, () -> orderService.saveOrder(newOrder, List.of()));
+        Assertions.assertThrows(MinimumAssistsException.class, () -> orderService.saveOrder(newOrder, List.of()));
         verify(orderRepository, times(0)).save(newOrder);
 
     }
 
+    @DisplayName("Should not create order maximum assits")
     @Test
     public void create_order_error_maximum() throws Exception {
         Order newOrder = new Order();
