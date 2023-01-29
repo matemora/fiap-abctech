@@ -1,5 +1,9 @@
 package br.com.fiap.abctechapi.service;
 
+
+import br.com.fiap.abctechapi.model.Assist;
+import br.com.fiap.abctechapi.repository.AssistRepository;
+import br.com.fiap.abctechapi.service.impl.AssistServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -8,31 +12,28 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import br.com.fiap.abctechapi.model.Assist;
-import br.com.fiap.abctechapi.repository.AssistRepository;
-import br.com.fiap.abctechapi.service.impl.AssistServiceImpl;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
-import java.util.List;
-
 @SpringBootTest
 public class AssistServiceTest {
+
     @Mock
     private AssistRepository assistRepository;
     private AssistService assistService;
 
     @BeforeEach
     void init() {
-        MockitoAnnotations.openMocks(assistRepository);
+        MockitoAnnotations.openMocks(this);
         assistService = new AssistServiceImpl(assistRepository);
     }
 
-    @DisplayName("List shoud contain items")
+    @DisplayName("List should have items")
     @Test
-    void list_success() {
-        Assist assist = new Assist(1L, "Teste", "Teste description");
-        Assist assist2 = new Assist(2L, "Teste", "Teste description");
+    void list_success(){
+        Assist assist = new Assist(1L, "Test", "Description Test");
+        Assist assist2 = new Assist(2L, "Test 2", "Description Test 2");
 
         when(assistRepository.findAll()).thenReturn(List.of(assist, assist2));
 
@@ -43,9 +44,9 @@ public class AssistServiceTest {
         Assertions.assertEquals(values.get(1).getId(), assist2.getId());
     }
 
-    @DisplayName("List shoud be empty")
+    @DisplayName("List should not have items")
     @Test
-    void empty_list() {
+    void empty_list(){
         when(assistRepository.findAll()).thenReturn(List.of());
 
         List<Assist> values = assistService.getServiceList();
