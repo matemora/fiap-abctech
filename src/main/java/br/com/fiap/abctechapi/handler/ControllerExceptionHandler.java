@@ -7,12 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import br.com.fiap.abctechapi.handler.exception.MinAssistsException;
+import br.com.fiap.abctechapi.handler.exception.MinimumAssistsException;
 
 @ControllerAdvice
 public class ControllerExceptionHandler {
-    @ExceptionHandler(MinAssistsException.class)
-    public ResponseEntity<ErrorMessageResponse> errorMinAssistRequired(MinAssistsException exception) {
+    @ExceptionHandler(MinimumAssistsException.class)
+    public ResponseEntity<ErrorMessageResponse> errorMinAssistRequired(MinimumAssistsException exception) {
         ErrorMessageResponse error = new ErrorMessageResponse(
             HttpStatus.BAD_REQUEST.value(),
             new Date(),
