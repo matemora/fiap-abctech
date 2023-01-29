@@ -3,10 +3,10 @@ package br.com.fiap.abctechapi.handler.exception;
 import lombok.Getter;
 
 @Getter
-public class MinAssistsException extends RuntimeException {
+public class MinimumAssistsException extends RuntimeException{
     private String description;
 
-    public MinAssistsException(String message, String description) {
+    public MinimumAssistsException (String message, String description){
         super(message);
         this.description = description;
     }
