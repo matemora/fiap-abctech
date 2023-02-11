@@ -128,6 +128,13 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-mysql</artifactId>
+				<configuration>
+				    <baselineOnMigrate>true</baselineOnMigrate>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
